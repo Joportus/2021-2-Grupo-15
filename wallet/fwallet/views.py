@@ -6,5 +6,4 @@ from django.shortcuts import render, redirect
 def walletv(request):
 
     dict = {"ingresos":"ingresos", "gastos": "gastos"}
-    return render(request, "fwallet\index.html", dict)
-    
+    return render(request, "fwallet\wallet.html", dict)

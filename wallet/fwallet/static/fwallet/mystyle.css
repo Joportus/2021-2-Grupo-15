@@ -1,7 +1,16 @@
 .ingreso{
-    background-color:green;
+    background-color:gold;
     color:black;
-    border: 2px solid blueviolet;
+    border: 10px solid darkgoldenrod;
+    margin: 20px;
+    padding: 20px;
+    ;
+}
+
+.gastos{
+    background-color: red;
+    color:black;
+    border: 10px solid darkred;
     margin: 20px;
     padding: 20px;
     ;
