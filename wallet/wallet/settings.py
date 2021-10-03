@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'fwallet',
 ]
 
+AUTH_USER_MODEL = 'fwallet.User'
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
