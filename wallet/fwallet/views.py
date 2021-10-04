@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from wallet.fwallet.models import RegistroDinero
+from fwallet.models import RegistroDinero
 
 # Create your views here.
 def walletv(request):
