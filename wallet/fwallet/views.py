@@ -23,15 +23,15 @@ def buscarMonto(request):
     if request.GET[input1_name]:
 
         monto_ingresado = request.GET[input1_name]
-        registros = RegistroDinero.objects.filter(monto__icontains=monto_ingresado)
+        registros = RegistroDinero.objects.filter(monto__iexact=monto_ingresado)
 
         return render(request, pagina_resultado, {"registros":registros, "query":monto_ingresado})
 
     else:
 
-        mensaje = "No se introdujo nada"
+       mensaje = "No se introdujo nada"
 
-    return HttpResponse(mensaje)
+    return render(request, pagina_resultado, {"mensaje": mensaje})
 
  
 def ingresar_registro(request):
