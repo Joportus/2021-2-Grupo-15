@@ -1,5 +1,5 @@
-.ingreso{
-    background-color:gold;
+.cuerpo{
+    background-color: honeydew;
     color:black;
     border: 10px solid darkgoldenrod;
     margin: 20px;
@@ -7,11 +7,18 @@
     ;
 }
 
-.gastos{
-    background-color: red;
+.header{
+    background-color: cadetblue;
     color:black;
-    border: 10px solid darkred;
+    border: 2px solid burlywood;
     margin: 20px;
     padding: 20px;
+    text-align: center
     ;
 }
+
+.tabla{
+    display: flex;
+    justify-content: space-between;
+}
+
