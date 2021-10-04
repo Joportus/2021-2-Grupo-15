@@ -9,7 +9,7 @@ def walletv(request):
     return render(request, "fwallet\wallet.html", dict)
 
 #Busca un registro de ingreso/gasto filtrando por el monto
-def buscar(request):
+def buscarMonto(request):
     input1_name = "monto"
 
     pagina_resultado = "resultados_busq_monto.html"
@@ -17,7 +17,7 @@ def buscar(request):
     if request.GET[input1_name]:
 
         monto_ingresado = request.GET["monto_ingresado"]
-        registro = RegistroDinero.objects.filter(monto__icontrains=monto_ingresado)
+        registro = RegistroDinero.objects.filter(monto__icontains=monto_ingresado)
 
         return render(request, pagina_resultado, {"registro":registro, "query":monto_ingresado})
 
