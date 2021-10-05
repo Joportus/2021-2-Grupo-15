@@ -2,18 +2,54 @@
 
 {% block title %} 
 
-Buscar registros
+
 
 {% endblock %}
 
 {% block content %}
+
+<button type="button">
+    <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
+</button>
+<p>Filtro por monto</p>
 <form action = "/buscar/" method ="GET">
     
-    
-
     <input type = "text" name="reg">
 
     <input type="submit" value= "Buscar">
 </form>
 
+{% if registros %}
+    <p> 
+    <p>Registros encontrados para monto = <strong>{{query}}</strong></p> {{registros|length}} registros</p>
+    <div class="container"> 
+        <strong><div class="row">
+            <div class="col"> Monto  </div> 
+            <div class="col"> Tipo </div> 
+            <div class="col"> Nombre </div> 
+            <div class="col"> Fecha </div>
+            <div class="col"> Categoria </div>
+            <div class="col"> Descripción </div>
+        </div></strong> 
+                
+                {% for registro in registros %}
+                <div class = "row">
+                        <div class="col">{{registro.monto}} </div> 
+                        <div class="col"> {{registro.tipo}} </div>
+                        <div class="col"> {{registro.nombre}} </div>
+                        <div class="col"> {{registro.fecha}} </div> 
+                        <div class="col"> {{registro.clase}} </div>
+                        <div class="col"> {{registro.descripcion}} </div>
+                </div>
+
+                {% endfor %}
+
+
+{% endif %}
+
+
+
+
 {% endblock %}
+
+

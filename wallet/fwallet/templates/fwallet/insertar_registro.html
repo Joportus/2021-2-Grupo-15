@@ -8,6 +8,10 @@ aaaaaaaaaaaaa
 
 {% block content %}
 
+<button type="button">
+    <a href="{% url 'Busqueda de registros' %}">Ver registros</a>
+</button>
+
 <form action="/new/" method="post">
     {% csrf_token %}
             <table>

@@ -14,11 +14,15 @@ def busqueda_registros(request):
 
 def insertar_registros(request):
     return render(request, "fwallet/insertar_registro.html")
+
+def inicio(request):
+
+    return render(request, "fwallet/inicio.html")
 #Busca un registro de ingreso/gasto filtrando por el monto
 def buscarMonto(request):
     input1_name = "reg"
 
-    pagina_resultado = "fwallet/buscar.html"
+    pagina_resultado = "fwallet/busqueda_registros.html"
 
     if request.GET[input1_name]:
 
@@ -29,9 +33,12 @@ def buscarMonto(request):
 
     else:
 
-       mensaje = "No se introdujo nada"
+       registros = RegistroDinero.objects.all()
 
-    return render(request, pagina_resultado, {"mensaje": mensaje})
+       return render(request, pagina_resultado, {"registros":registros})
+
+
+    #return render(request, pagina_resultado, {"mensaje": mensaje})
 
  
 def ingresar_registro(request):
