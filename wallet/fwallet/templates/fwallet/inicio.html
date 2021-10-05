@@ -1,0 +1,16 @@
+{% extends "fwallet\index.html" %}
+
+{% block title %} 
+
+
+{% endblock %}
+
+{% block content %}
+<button type="button">
+    <a href="{% url 'Busqueda de registros' %}">Ver registros</a>
+</button>
+
+<button type="button">
+    <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
+</button>
+{% endblock %}
