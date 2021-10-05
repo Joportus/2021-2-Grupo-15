@@ -119,7 +119,7 @@ def register_user(request):
     else:
         user = User.objects.create_user(username=nombre, password=contraseña, email=mail, apodo=apodo, genero=genero)
 
-        #Redireccionar la página /tareas
+        #Redireccionar la página /inicio
         return HttpResponseRedirect('/inicio')
     #return render(request,"fwallet/register_user.html")
 
