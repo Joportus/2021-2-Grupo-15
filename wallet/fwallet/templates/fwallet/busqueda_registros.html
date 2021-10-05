@@ -7,51 +7,44 @@
 {% endblock %}
 
 {% block content %}
-
 <button type="button">
     <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
 </button>
+
 <br>
-<br>   
+<br>
 
 <form action = "/busqueda_registros/" method ="POST">
+<div class = "tabla1">  
     {% csrf_token %}
     <p>Todos los registros</p> 
     
     <input type="submit" value= "Buscar todos" name="all_reg">
-
-    <br>
-    <br>   
-
 
     <p>Filtro por monto</p>
     <input type = "text" name="reg">
 
     <input type="submit" value= "Buscar">
 
-<br>
-<br>
 <p>Filtro por fecha</p>
     
     <input type = "date" name="reg2">
 
     <input type="submit" value= "Buscar">
 
-
-<br>
-<br>
 <p>Filtro por tipo</p>
 <input type="submit" value= "Ingresos" name="reg3">
 <input type="submit" value= "Gastos" name="reg4">
 <input type="submit" value= "Deudas" name="reg5">
+
+</div>  
 
 
 
 {% if registros %}
 <br>
 <br>
-    <p> 
-    <p>Registros encontrados para monto = <strong>{{query}}</strong></p> {{registros|length}} registros</p>
+    <p>  {{registros|length}} registros encontrados</p>
     <div class="container"> 
         <strong><div class="row">
             <div class="col"> Monto  </div> 
@@ -77,6 +70,11 @@
 
 {% endif %}
 
+<br>
+<br>
+
+<br>
+<br>
 
 
 {% endblock %}
