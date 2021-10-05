@@ -17,8 +17,20 @@
     ;
 }
 
-.tabla{
+.tabla1{
     display: flex;
     justify-content: space-between;
 }
+
+.tabla{
+    display: flex;
+    justify-content: space-between;
+    font-size: xx-large;
+}
+
+.pie{
+    display: flex;
+    justify-content: flex-end;
+}
+
 
