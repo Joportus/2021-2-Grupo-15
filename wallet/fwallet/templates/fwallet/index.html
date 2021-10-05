@@ -12,6 +12,15 @@
     <div class = "cuerpo">
     <h1 class = "header"> Wallet Electrónica </h1>
 
+    <hr>
+    {% if user.is_authenticated %}
+    <a href="{% url 'logout' %}">Cerrar sesión </a>
+    {% else %}
+    <a href="{% url 'register_user' %}">Registrarse</a>
+    <a href="{% url 'login' %}">Iniciar Sesión</a>
+    {% endif %}
+    <hr>
+
     {% block content %} {% endblock %}
 
     <p> Equipo 15 - Ingeniería de Software</p>

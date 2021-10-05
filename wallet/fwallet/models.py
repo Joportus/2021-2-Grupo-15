@@ -11,14 +11,14 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
-    generos = [("m", "Masculino"), ("f", "Femenino"), ("nb", "No-binario")]
+    generos = [("m", "Masculino"), ("f", "Femenino"), ("nb", "No-binario"), ("Otro", "Otro")]
     genero = models.CharField(max_length = 13, choices = generos)
     apodo = models.CharField(max_length=30)
 
 small_size = 20
 medium_size = 1000
 class RegistroDinero(models.Model):
-
+    owner = models.ForeignKey(User,blank=True,null=True, on_delete=models.CASCADE)
     monto = models.IntegerField()
     tipos_de_gasto = [('i','ingreso'), ('g','gasto'), ('d','deuda')]
     tipo = models.CharField(max_length=small_size, choices=tipos_de_gasto)
