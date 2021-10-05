@@ -72,4 +72,5 @@ def ingresar_registro(request):
     return render(request, 'fwallet/insertar_registro.html', {"message": "registrado!"})
 
 
-
+def register_user(request):
+    return render(request,"fwallet/register_user.html")
