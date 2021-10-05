@@ -1,5 +1,4 @@
 
-
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
@@ -12,6 +11,8 @@ from django.contrib.auth.models import AbstractUser
 # Create your models here.
 
 class User(AbstractUser):
+    generos = [("m", "Masculino"), ("f", "Femenino"), ("nb", "No-binario")]
+    genero = models.CharField(max_length = 13, choices = generos)
     apodo = models.CharField(max_length=30)
 
 small_size = 20
