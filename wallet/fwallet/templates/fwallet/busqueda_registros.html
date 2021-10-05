@@ -12,12 +12,21 @@
     <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
 </button>
 <p>Filtro por monto</p>
-<form action = "/buscar/" method ="GET">
+<form action = "/buscar/" method ="POST">
+    {% csrf_token %}
     
     <input type = "text" name="reg">
 
     <input type="submit" value= "Buscar">
+
+<p>Filtro por fecha</p>
+    
+    <input type = "date" name="reg2">
+
+    <input type="submit" value= "Buscar">
 </form>
+
+
 
 {% if registros %}
     <p> 

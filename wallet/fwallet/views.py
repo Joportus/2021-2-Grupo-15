@@ -19,26 +19,36 @@ def inicio(request):
 
     return render(request, "fwallet/inicio.html")
 #Busca un registro de ingreso/gasto filtrando por el monto
-def buscarMonto(request):
+def filtrar_por(request):
     input1_name = "reg"
+    input2_name = "reg2"
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
-    if request.GET[input1_name]:
+    if request.POST.get(input1_name):
 
-        monto_ingresado = request.GET[input1_name]
+        monto_ingresado = request.POST.get(input1_name)
         registros = RegistroDinero.objects.filter(monto__iexact=monto_ingresado)
 
         return render(request, pagina_resultado, {"registros":registros, "query":monto_ingresado})
+
+
+    elif request.POST.get(input2_name):
+
+        fecha_ingresada = request.POST.get(input2_name)
+        registros = RegistroDinero.objects.filter(fecha__iexact=fecha_ingresada)
+
+        return render(request, pagina_resultado, {"registros":registros, "query":fecha_ingresada})
 
     else:
 
        registros = RegistroDinero.objects.all()
 
-       return render(request, pagina_resultado, {"registros":registros})
+       return render(request, pagina_resultado, {"registros":registros,"message": "aaaaaa"})
 
 
     #return render(request, pagina_resultado, {"mensaje": mensaje})
+
 
  
 def ingresar_registro(request):
@@ -53,4 +63,6 @@ def ingresar_registro(request):
     o_ref.save()
 
     return render(request, 'fwallet/insertar_registro.html', {"message": "registrado!"})
+
+
 
