@@ -24,6 +24,9 @@ def filtrar_por(request):
     input1_name = "reg"
     input2_name = "reg2"
     input3_name = "all_reg"
+    input4_name = "reg3"
+    input5_name = "reg4"
+    input6_name = "reg5"
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
@@ -49,12 +52,33 @@ def filtrar_por(request):
 
        return render(request, pagina_resultado, {"registros":registros})
 
+
+    elif request.POST.get(input4_name):
+
+        tipo_ingresado = "ingreso"
+        registros = RegistroDinero.objects.filter(tipo__iexact=tipo_ingresado)
+
+        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+
+    elif request.POST.get(input5_name):
+
+        tipo_ingresado = "gasto"
+        registros = RegistroDinero.objects.filter(tipo__iexact=tipo_ingresado)
+
+        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+
+    elif request.POST.get(input6_name):
+
+        tipo_ingresado = "deuda"
+        registros = RegistroDinero.objects.filter(tipo__iexact=tipo_ingresado)
+
+        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+
+
+
     else:
+
         return render(request, pagina_resultado)
-
-
-
-    #return render(request, pagina_resultado, {"mensaje": mensaje})
 
 
  
