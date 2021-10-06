@@ -1,0 +1,36 @@
+.cuerpo{
+    background-color: honeydew;
+    color:black;
+    border: 10px solid darkgoldenrod;
+    margin: 20px;
+    padding: 20px;
+    ;
+}
+
+.header{
+    background-color: cadetblue;
+    color:black;
+    border: 2px solid burlywood;
+    margin: 20px;
+    padding: 20px;
+    text-align: center
+    ;
+}
+
+.tabla1{
+    display: flex;
+    justify-content: space-between;
+}
+
+.tabla{
+    display: flex;
+    justify-content: space-between;
+    font-size: xx-large;
+}
+
+.pie{
+    display: flex;
+    justify-content: flex-end;
+}
+
+
