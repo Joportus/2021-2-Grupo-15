@@ -29,10 +29,11 @@ def filtrar_por(request):
     input4_name = "reg3"
     input5_name = "reg4"
     input6_name = "reg5"
+    input7_name = "reg6"
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
-    query_filters = ["","","","",""]
+    query_filters = [0,0,0,0,0,0]
 
     if request.method == "GET" or request.POST.get(input3_name):
 
@@ -90,17 +91,23 @@ def filtrar_por(request):
         query_filters[4] = tipo_ingresado
         #registros = registros.filter(tipo__iexact=tipo_ingresado)
 
+    if request.POST.get(input7_name):
+        categoria_ingresada = request.POST.get(input7_name)
+        query_filters[5] = categoria_ingresada
+
     #return render(request, pagina_resultado, {"registros":registros})
-    if query_filters[0] != "":
+    if query_filters[0] != 0:
         registros = registros.filter(monto__iexact=query_filters[0])
-    if query_filters[1] != "":
+    if query_filters[1] != 0:
         registros = registros.filter(fecha__iexact=query_filters[1])
-    if query_filters[2] != "":
+    if query_filters[2] != 0:
         registros = registros.filter(tipo__iexact=query_filters[2])
-    if query_filters[3] != "":
+    if query_filters[3] != 0:
         registros = registros.filter(tipo__iexact=query_filters[3])
-    if query_filters[4] != "":
+    if query_filters[4] != 0:
         registros = registros.filter(tipo__iexact=query_filters[4])
+    if query_filters[5] != 0:
+        registros = registros.filter(clase__iexact=query_filters[5])
 
     print(query_filters)
  
