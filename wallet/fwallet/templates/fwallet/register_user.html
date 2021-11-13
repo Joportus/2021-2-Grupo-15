@@ -1,4 +1,4 @@
-{% extends "fwallet\index.html" %}
+{%  extends "fwallet/base.html" %}
 
 {% block title %} 
 
@@ -8,34 +8,34 @@ Registro de usuarios
 
 {% block content %}
 
-<h1> Registro </h1>
+<h1 style="color : antiquewhite;"> Registro </h1>
         {% if error %}
             <h3> El usuario ya existe </h3>
         {% endif %}
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="nombre_usuario">Nombre</label>
+                <label style="color : antiquewhite;" for="nombre_usuario">Nombre</label>
                 <input type="text" class="form-control" id=nombre_usuario name="nombre" required>
             </div>
 
             <div class="form-group">
-                <label for="contraseña">Contraseña</label>
+                <label style="color : antiquewhite;" for="contraseña">Contraseña</label>
                 <input type="password" class="form-control" id="contraseña" name="contraseña" required>
             </div>
             
             <div class="form-group">
-                <label for="mail">Mail</label>
+                <label style="color : antiquewhite;" for="mail">Mail</label>
                 <input type="email" class="form-control" id="mail" name="mail" required>
             </div>
 
              <div class="form-group">
-                <label for="apodo">Apodo</label>
+                <label style="color : antiquewhite;" for="apodo">Apodo</label>
                 <input type="text" class="form-control" id="apodo" name="apodo">
              </div>
 
             <div>
-                <label for="genero">Genero</label>
+                <label style="color : antiquewhite;" for="genero">Genero</label>
                 <select id="genero" class="form-control" name="genero">
                     <option class="disabled" value="">Elige tu genero</option>
                     <option value="m">Masculino</option>

@@ -1,16 +1,45 @@
-{% extends "fwallet\index.html" %}
+{%  extends "fwallet/base.html" %}
 
-{% block title %} 
-
-
-{% endblock %}
+{% load static %}
 
 {% block content %}
-<button type="button">
-    <a href="{% url 'Busqueda de registros' %}">Ver registros</a>
-</button>
 
-<button type="button">
-    <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
-</button>
-{% endblock %}
+
+   <!-- Heading -->
+   <section class="page-section clearfix">
+    <div class="container">
+      <div class="intro">
+        <img class="intro-img img-fluid mb-3 mb-lg-0 rounded" src="{% static 'fwallet/img/Wallet1.jpg' %}" alt="">
+        <div class="intro-text left-0 text-center bg-faded p-5 rounded">
+          <h2 class="section-heading mb-4" >
+            <span class="section-heading-upper">Objetivo</span>
+            <span class="section-heading-lower">General</span>
+          </h2>
+          <p class="mb-3">Breve descripción de la app
+          </p>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+    <!-- Message -->
+    <section class="page-section cta">
+      <div class="container">
+        <div class="row">
+          <div class="col-xl-9 mx-auto">
+            <div class="cta-inner text-center rounded">
+              <h2 class="section-heading mb-4">
+                <span class="section-heading-upper">Instrucciones</span>
+                <span class="section-heading-lower">No sabes qué hacer?</span>
+              </h2>
+              <p class="mb-0">Pasos de cómo funciona la app</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {% endblock %}

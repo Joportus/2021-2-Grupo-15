@@ -120,7 +120,7 @@ def register_user(request):
         user = User.objects.create_user(username=nombre, password=contraseña, email=mail, apodo=apodo, genero=genero)
 
         #Redireccionar la página /inicio
-        return HttpResponseRedirect('/inicio')
+        return HttpResponseRedirect('/')
     #return render(request,"fwallet/register_user.html")
 
 
@@ -133,10 +133,10 @@ def login_user(request):
         usuario = authenticate(username=username,password=contraseña)
         if usuario is not None:
             login(request,usuario)
-            return HttpResponseRedirect('/inicio')
+            return HttpResponseRedirect('/')
         else:
             return HttpResponseRedirect('/register')
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/inicio')
+    return HttpResponseRedirect('/')
