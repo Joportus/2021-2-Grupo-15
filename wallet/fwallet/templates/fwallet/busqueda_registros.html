@@ -13,34 +13,106 @@
 <form action = "/busqueda_registros/" method ="POST">
 <div class = "tabla1">  
     {% csrf_token %}
-    <p style="color : antiquewhite;">Todos los registros</p>
     
     <input type="submit" value= "Buscar todos" name="all_reg">
 
-    <p style="color : antiquewhite;" >Filtro por monto</p>
+    &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
     <input type = "text" name="reg">
-
-    <input type="submit" value= "Buscar">
-
-<p style="color : antiquewhite;">Filtro por fecha</p>
-    
+    &nbsp&nbsp&nbsp&nbsp
     <input type = "date" name="reg2">
 
+    &nbsp &nbsp &nbsp
+   
+
+    <input type="checkbox" value= "Ingresos" name="reg3" id="Ingresos">
+    <label for="Ingresos">
+        <p style="color : antiquewhite;" >Ingresos</p>
+    </label>
+    &nbsp &nbsp &nbsp
+   
+    <input type="checkbox" value= "Gastos" name="reg4" id="Gastos">
+    <label for="Gastos">
+        <p style="color : antiquewhite;" >Gastos</p>
+    </label>
+    
+    &nbsp &nbsp &nbsp
+    <input type="checkbox" value= "Deudas" name="reg5" id="Deudas">
+    <label for="Deudas">
+        <p style="color : antiquewhite;" >Deudas</p>
+    </label>
+    &nbsp &nbsp &nbsp
     <input type="submit" value= "Buscar">
 
-<p style="color : antiquewhite;" >Filtro por tipo</p>
-<input type="submit" value= "Ingresos" name="reg3">
-<input type="submit" value= "Gastos" name="reg4">
-<input type="submit" value= "Deudas" name="reg5">
 
 </div>  
+
+
+<style>
+   
+      .tabla1{
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      margin-left: 400px;
+      margin-top: 40px;
+      
+     
+    }
+   
+  
+  
+  </style>
+  
 
 
 
 {% if registros %}
 <br>
+
+<div class = "nombre_de_filtros">
+    <p style="color : antiquewhite;" >Filtro por monto </p>
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp
+    &nbsp 
+    <p style="color : antiquewhite;" >Filtro por fecha </p>
+
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp
+    &nbsp &nbsp &nbsp 
+    &nbsp &nbsp &nbsp 
+    &nbsp &nbsp &nbsp 
+    <p style="color : antiquewhite;" >Filtro por tipo </p>
+
+</div>
+
+
+<style>
+   
+    .nombre_de_filtros{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: 565px;
+    margin-top: -20px;
+    
+   
+  }
+ 
+
+
+</style>
 <br>
-    <p style="color : antiquewhite;">  {{registros|length}} registros encontrados</p>
+<br>
+<br>
+<br>
+    
     <div class="container"> 
         <strong><div style="background-color: #1c7430" class="row">
            <div class="col" > Monto  </div>
@@ -66,6 +138,8 @@
 
 {% endif %}
 
+
+<!--
 <br>
 <br>
     <section>
@@ -79,8 +153,7 @@
     </section>
 <br>
 <br>
-
-
+-->
 {% endblock %}
 
 
