@@ -1,4 +1,4 @@
-{% extends "fwallet\index.html" %}
+{%  extends "fwallet/base.html" %}
 
 {% block title %} 
 
@@ -7,62 +7,178 @@
 {% endblock %}
 
 {% block content %}
-<button type="button">
-    <a href="{% url 'ins_registro' %}">Ingresar un registro</a>
-</button>
+
+
 
 <br>
-<br>
-
 <form action = "/busqueda_registros/" method ="POST">
-<div class = "tabla1">  
+    <div style="width: 80%;background-color: greenyellow; margin: auto; text-align: center ">
+
+
+
+        Filtro por monto
+
+
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp
+
+
+
+        Filtro por fecha
+
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp
+
+        Filtro por tipo
+
+
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+        &nbsp &nbsp &nbsp
+
+
+        Filtro por categoría
+
+    </div>
+    <section>
     {% csrf_token %}
-    <p>Todos los registros</p> 
-    
-    <input type="submit" value= "Buscar todos" name="all_reg">
+        <div style="width: 80%;background-color: greenyellow; margin: auto; text-align: center; ">
+        <input type="submit" value= "Buscar todos" name="all_reg">
 
-    <p>Filtro por monto</p>
+    &nbsp &nbsp &nbsp
     <input type = "text" name="reg">
-
-    <input type="submit" value= "Buscar">
-
-<p>Filtro por fecha</p>
-    
+    &nbsp &nbsp &nbsp
     <input type = "date" name="reg2">
 
+    <input  type="checkbox" value= "Ingresos" name="reg3" id="Ingresos">
+    <label for="Ingresos">
+        <p style="color : black;" >Ingresos</p>
+    </label>
+    &nbsp &nbsp &nbsp
+
+    <input type="checkbox" value= "Gastos" name="reg4" id="Gastos">
+    <label for="Gastos">
+        <p style="color : black;" >Gastos</p>
+    </label>
+
+    &nbsp &nbsp &nbsp
+    <input type="checkbox" value= "Deudas" name="reg5" id="Deudas">
+    <label for="Deudas">
+        <p style="color : black;" >Deudas</p>
+    </label>
+    &nbsp &nbsp &nbsp
+
+    <input type = "text" name="reg6">
+
+    &nbsp &nbsp &nbsp
     <input type="submit" value= "Buscar">
 
-<p>Filtro por tipo</p>
-<input type="submit" value= "Ingresos" name="reg3">
-<input type="submit" value= "Gastos" name="reg4">
-<input type="submit" value= "Deudas" name="reg5">
+        </div>
+    </section>
+
+
+
+
+<div class = "tabla1">
+
+    
+
+
+   
+
+
+
+
 
 </div>  
+
+
+<style>
+   
+      .tabla1{
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: absolute;
+      margin-left: 400px;
+      margin-top: 40px;
+      
+     
+    }
+   
+  
+  
+  </style>
+  
 
 
 
 {% if registros %}
 <br>
+
+
+
+
+<style>
+   
+    .nombre_de_filtros{
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    margin-left: 565px;
+    margin-top: -20px;
+    
+   
+  }
+ 
+
+
+</style>
 <br>
-    <p>  {{registros|length}} registros encontrados</p>
+<br>
+
+
     <div class="container"> 
-        <strong><div class="row">
-            <div class="col"> Monto  </div> 
-            <div class="col"> Tipo </div> 
-            <div class="col"> Nombre </div> 
-            <div class="col"> Fecha </div>
-            <div class="col"> Categoria </div>
-            <div class="col"> Descripción </div>
+        <strong><div style="background-color: #1c7430" class="row">
+           <div class="col" > Monto  </div>
+           <div class="col"> Tipo </div>
+           <div class="col"> Nombre </div>
+           <div class="col"> Fecha </div>
+           <div class="col"> Categoria </div>
+           <div class="col"> Descripción </div>
         </div></strong> 
                 
                 {% for registro in registros %}
-                <div class = "row">
-                        <div class="col">{{registro.monto}} </div> 
+                <div style="background-color: #9fcdff; border-bottom:1px solid black" class = "row">
+
+
+                        {% if registro.tipo == "Ingreso"%}
+                            <div style = "color: green" class="col">{{registro.monto}} </div>
+                            {% elif  registro.tipo == "Gasto" %}
+                            <div style = "color: red" class="col">{{registro.monto}} </div>
+                            {% else %}
+                            <div style = "color: purple" class="col">{{registro.monto}} </div>
+                        {% endif %}
+
                         <div class="col"> {{registro.tipo}} </div>
+
                         <div class="col"> {{registro.nombre}} </div>
-                        <div class="col"> {{registro.fecha}} </div> 
+                        <div class="col"> {{registro.fecha}} </div>
                         <div class="col"> {{registro.clase}} </div>
                         <div class="col"> {{registro.descripcion}} </div>
+
+
                 </div>
 
                 {% endfor %}
@@ -70,13 +186,22 @@
 
 {% endif %}
 
-<br>
-<br>
 
+<!--
 <br>
 <br>
+    <section>
+        <div style="background-color: mintcream; margin: auto; text-align: center;">
+
+            Categorias de registros:
 
 
+        </div>
+
+    </section>
+<br>
+<br>
+-->
 {% endblock %}
 
 

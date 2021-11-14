@@ -1,4 +1,4 @@
-{% extends "fwallet\index.html" %}
+{%  extends "fwallet/base.html" %}
 
 {% block title %} 
 
@@ -7,35 +7,60 @@ Registro de usuarios
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 
-<h1> Registro </h1>
+
+<div class="title">
+    <h1 style="color : antiquewhite;"> Registro de usuario </h1>
+</div>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+<div class="registro">
         {% if error %}
             <h3> El usuario ya existe </h3>
         {% endif %}
         <form method="post">
             {% csrf_token %}
             <div class="form-group">
-                <label for="nombre_usuario">Nombre</label>
+                <label style="color : antiquewhite;" for="nombre_usuario">Nombre</label>
                 <input type="text" class="form-control" id=nombre_usuario name="nombre" required>
             </div>
 
             <div class="form-group">
-                <label for="contraseña">Contraseña</label>
+                <label style="color : antiquewhite;" for="contraseña">Contraseña</label>
                 <input type="password" class="form-control" id="contraseña" name="contraseña" required>
             </div>
             
             <div class="form-group">
-                <label for="mail">Mail</label>
+                <label style="color : antiquewhite;" for="mail">Mail</label>
                 <input type="email" class="form-control" id="mail" name="mail" required>
             </div>
 
              <div class="form-group">
-                <label for="apodo">Apodo</label>
+                <label style="color : antiquewhite;" for="apodo">Apodo</label>
                 <input type="text" class="form-control" id="apodo" name="apodo">
              </div>
 
             <div>
-                <label for="genero">Genero</label>
+                <label style="color : antiquewhite;" for="genero">Genero</label>
                 <select id="genero" class="form-control" name="genero">
                     <option class="disabled" value="">Elige tu genero</option>
                     <option value="m">Masculino</option>
@@ -44,8 +69,43 @@ Registro de usuarios
                     <option value="Otro">Otro</option>
                 </select>
             </div>
-
+            <br>
              <button type="submit">Crear usuario</button>
         </form>
+</div>
 
+<style>
+       .registro{
+
+    display: flex;
+    transform: scale(1.3);
+    align-items: center;
+    justify-content: center;  
+
+
+    }
+
+    .title{
+
+    display: flex;
+    transform: scale(1.5);
+    align-items: center;
+    justify-content: center;
+    margin-top: -200px;
+
+
+    }
+
+
+    
+</style>
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 {% endblock %}

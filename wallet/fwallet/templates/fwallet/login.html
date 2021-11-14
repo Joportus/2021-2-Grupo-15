@@ -1,26 +1,27 @@
-{% extends "fwallet\index.html" %}
+{%  extends "fwallet/base.html" %}
 
-{% block title %} 
+{% block title %}
 
 Inicio de Sesión
 
 {% endblock %}
 
 {% block content %}
+<br>
+<br>
 
-<a href="{% url 'Busqueda de registros' %}">Sesión de invitados</a>
 
 <div class="container">
     <div class="content">
-        <h1> Iniciar Sesión </h1>
+        <h1 style="color : antiquewhite;"> Iniciar Sesión </h1>
         <form method="post" >
             {% csrf_token %}
-            <div class="form-group">
-                <label for="nombre_usuario">Nombre</label>
+            <div  class="form-group">
+                <label style="color : antiquewhite;" for="nombre_usuario">Nombre</label>
                 <input type="text" class="form-control" id=nombre_usuario name="username" required>
             </div>
             <div class="form-group">
-                <label for="contraseña">Contraseña</label>
+                <label style="color : antiquewhite;" for="contraseña">Contraseña</label>
                 <input type="password" class="form-control" id="contraseña" name="contraseña" required>
             </div>
             <button type="submit">Entrar</button>
@@ -28,4 +29,6 @@ Inicio de Sesión
     </div>
 </div>
 
+<br>
+<br>
 {% endblock %}

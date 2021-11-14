@@ -29,54 +29,90 @@ def filtrar_por(request):
     input4_name = "reg3"
     input5_name = "reg4"
     input6_name = "reg5"
+    input7_name = "reg6"
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
+    query_filters = [0,0,0,0,0,0]
+
     if request.method == "GET" or request.POST.get(input3_name):
+
 
        return render(request, pagina_resultado, {"registros":registros})
 
-    elif request.POST.get(input1_name):
+    if request.POST.get(input1_name):
+
 
         monto_ingresado = request.POST.get(input1_name)
-        registros = registros.filter(monto__iexact=monto_ingresado)
+        query_filters[0] = monto_ingresado
+        #registros = registros.filter(monto__iexact=monto_ingresado)
 
-        return render(request, pagina_resultado, {"registros":registros, "query":monto_ingresado})
+        #return render(request, pagina_resultado, {"registros":registros, "query":monto_ingresado})
 
 
-    elif request.POST.get(input2_name):
+    if request.POST.get(input2_name):
 
         fecha_ingresada = request.POST.get(input2_name)
-        registros = registros.filter(fecha__iexact=fecha_ingresada)
+        query_filters[1] = fecha_ingresada
+        #registros = registros.filter(fecha__iexact=fecha_ingresada)
 
-        return render(request, pagina_resultado, {"registros":registros, "query":fecha_ingresada})
-
-
-    elif request.POST.get(input4_name):
-
-        tipo_ingresado = "ingreso"
-        registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
-
-    elif request.POST.get(input5_name):
-
-        tipo_ingresado = "gasto"
-        registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
-
-    elif request.POST.get(input6_name):
-
-        tipo_ingresado = "deuda"
-        registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-        return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+        #return render(request, pagina_resultado, {"registros":registros, "query":fecha_ingresada})
 
 
-    else:
+    if request.POST.get(input6_name):
 
-        return render(request, pagina_resultado)
+        tipo_ingresado = ""
+        
+        if request.POST.get(input6_name) == "Deudas":
+            tipo_ingresado = "deuda"
+        query_filters[2] = tipo_ingresado
+        #registros = registros.filter(tipo__iexact=tipo_ingresado)
+
+        #return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+
+    if request.POST.get(input5_name):
+
+        tipo_ingresado = ""
+        print(request.POST.get(input5_name))
+        if request.POST.get(input5_name) == "Gastos":
+            tipo_ingresado = "gasto"
+        
+        query_filters[3] = tipo_ingresado
+        #registros = registros.filter(tipo__iexact=tipo_ingresado)
+
+        #return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
+
+    if request.POST.get(input4_name):
+
+        tipo_ingresado = ""
+        print(request.POST.get(input4_name))
+        if request.POST.get(input4_name) == "Ingresos":
+            tipo_ingresado = "ingreso"
+        query_filters[4] = tipo_ingresado
+        #registros = registros.filter(tipo__iexact=tipo_ingresado)
+
+    if request.POST.get(input7_name):
+        categoria_ingresada = request.POST.get(input7_name)
+        query_filters[5] = categoria_ingresada
+
+    #return render(request, pagina_resultado, {"registros":registros})
+    if query_filters[0] != 0:
+        registros = registros.filter(monto__iexact=query_filters[0])
+    if query_filters[1] != 0:
+        registros = registros.filter(fecha__iexact=query_filters[1])
+    if query_filters[2] != 0:
+        registros = registros.filter(tipo__iexact=query_filters[2])
+    if query_filters[3] != 0:
+        registros = registros.filter(tipo__iexact=query_filters[3])
+    if query_filters[4] != 0:
+        registros = registros.filter(tipo__iexact=query_filters[4])
+    if query_filters[5] != 0:
+        registros = registros.filter(clase__iexact=query_filters[5])
+
+    print(query_filters)
+ 
+    return render(request, pagina_resultado, {"registros":registros})
+    
 
 
  
@@ -120,7 +156,7 @@ def register_user(request):
         user = User.objects.create_user(username=nombre, password=contraseña, email=mail, apodo=apodo, genero=genero)
 
         #Redireccionar la página /inicio
-        return HttpResponseRedirect('/inicio')
+        return HttpResponseRedirect('/')
     #return render(request,"fwallet/register_user.html")
 
 
@@ -133,10 +169,10 @@ def login_user(request):
         usuario = authenticate(username=username,password=contraseña)
         if usuario is not None:
             login(request,usuario)
-            return HttpResponseRedirect('/inicio')
+            return HttpResponseRedirect('/')
         else:
             return HttpResponseRedirect('/register')
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect('/inicio')
+    return HttpResponseRedirect('/')
