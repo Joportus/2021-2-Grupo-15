@@ -25,4 +25,6 @@ class RegistroDinero(models.Model):
     nombre = models.CharField(max_length = small_size)
     fecha = models.DateField()
     clase = models.CharField(max_length=small_size)
+    #periodicidad = models.BooleanField()
+    #tiempo_de_periodicidad = models.IntegerField()
     descripcion = models.CharField(max_length=medium_size)
