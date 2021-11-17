@@ -1,3 +1,4 @@
 wallet/db.sqlite3
 wallet/fwallet/migrations/
+.idea/
 

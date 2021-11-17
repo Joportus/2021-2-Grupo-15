@@ -17,6 +17,8 @@ class User(AbstractUser):
 
 small_size = 20
 medium_size = 1000
+
+
 class RegistroDinero(models.Model):
     owner = models.ForeignKey(User,blank=True,null=True, on_delete=models.CASCADE)
     monto = models.IntegerField()

@@ -1,16 +1,20 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, HttpResponseRedirect
-from fwallet.models import RegistroDinero,User
-from django.contrib.auth import authenticate, login,logout
+from fwallet.models import RegistroDinero, User
+from django.contrib.auth import authenticate, login, logout
+from fwallet.userForm import RegisterUser
+from fwallet.registerForm import MoneyForm
 
-# Create your views here.
+
 def walletv(request):
 
     dict = {"ingresos":"ingresos", "gastos": "gastos"}
     return render(request, "fwallet\wallet.html", dict)
 
-def insertar_registros(request):
-    return render(request, "fwallet/insertar_registro.html")
+
+#def insertar_registros(request):
+#    return render(request, "fwallet/insertar_registro.html")
+
 
 def inicio(request):
 
@@ -114,49 +118,41 @@ def filtrar_por(request):
     return render(request, pagina_resultado, {"registros":registros})
     
 
-
- 
-def ingresar_registro(request):
+def insertar_registros(request):
+    if request.method == "GET":
+        form_registro = MoneyForm()    # renderiza el formulario
+        return render(request, 'fwallet/insertar_registro.html', {"form_registro": form_registro})
     if request.method == "POST":  # revisar si el método de la request es POST
-        tipo = request.POST.get("tipo")
-        monto = request.POST.get("monto")
-        fecha = request.POST.get("fecha")
-        clase = request.POST.get("categoria")
-        descripcion = request.POST.get("descripcion")
-        nombre = request.POST.get("nombre")
-
+        form_registro = MoneyForm(request.POST)    # se obtienen los datos ingresados
+        if form_registro.is_valid():    # validacion
+            nuevo_registro = form_registro.save()    # se guardan los datos si son validos
         #Verificar si el usuario inició sesión o no!!
-        if request.user.is_authenticated:
-            o_ref = RegistroDinero(tipo=tipo, monto=monto, nombre=nombre,fecha=fecha, clase = clase, descripcion=descripcion,owner=request.user)  # Crear el usuario
-        else:
-            o_ref = RegistroDinero(tipo=tipo, monto=monto, nombre=nombre,fecha=fecha, clase = clase, descripcion=descripcion)
-        o_ref.save()  # guardar la tarea en la base de datos.
-        return render(request, 'fwallet/insertar_registro.html', {"message": "registrado!"})
+        if request.user.is_authenticated:    # si corresponde a un usuario se guarda como owner
+            nuevo_registro.owner = request.user
+            nuevo_registro.save()
+    return HttpResponseRedirect('/busqueda_registros')
 
 
 def register_user(request):
     if request.method == 'GET': #Si estamos cargando la página
-     return render(request, "fwallet/register_user.html") #Mostrar el template
+        form_registro_usuario = RegisterUser()    # renderea form en template
+        return render(request, "fwallet/register_user.html", {"form_registro_usuario": form_registro_usuario})
 
     elif request.method == 'POST': #Si estamos recibiendo el form de registro
-     #Tomar los elementos del formulario que vienen en request.POST
-     nombre = request.POST['nombre']
-     contraseña = request.POST['contraseña']
-     mail = request.POST['mail']
-     apodo = request.POST['apodo']
-     genero = request.POST['genero']
-     
-
-    #Si ya existe el username
-    if User.objects.filter(username=nombre).exists():
-        error = "error"
-        return render(request,"fwallet/register_user.html", {"error":error})
-    #Crear el nuevo usuario   
-    else:
-        user = User.objects.create_user(username=nombre, password=contraseña, email=mail, apodo=apodo, genero=genero)
-
-        #Redireccionar la página /inicio
-        return HttpResponseRedirect('/')
+        form_registro_usuario = RegisterUser(request.POST)
+        if form_registro_usuario.is_valid():    # validacion
+            cleaned = form_registro_usuario.cleaned_data    # toma los datos
+            user = cleaned['usuario']
+            password = cleaned['password']
+            mail = cleaned['email']
+            apodo = cleaned['apodo']
+            genero = cleaned['genero']
+        if User.objects.filter(username=cleaned['usuario']).exists():   #Si ya existe el username
+            error = "error"
+            return render(request,"fwallet/register_user.html", {"error":error})
+        else:    #Crear el nuevo usuario
+            User.objects.create_user(username=user, password=password, email=mail, apodo=apodo, genero=genero)
+        return HttpResponseRedirect('/login')    #Redireccionar la página de login
     #return render(request,"fwallet/register_user.html")
 
 

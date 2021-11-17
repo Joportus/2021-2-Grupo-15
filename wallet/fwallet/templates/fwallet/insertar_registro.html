@@ -12,100 +12,27 @@ Inserta Registro
 <br>
 <br>
 
-<div class="form">
-    <form action="/new/" method="post">
+<div class="registro">
+    <form method="post">
         {% csrf_token %}
-                <table>
-    
-    
-                    <tr>
-                        <th width="400">
-                            <input type="number" placeholder="Monto" name="monto">
-    
-                        </th>
-    
-                    </tr>
-    
-                    <tr>
-                        <th width="400">
-                            <input list="tipos" name="tipo" /></label>
-                            <datalist id="tipos">
-                            <option value="Ingreso">
-                            <option value="Gasto">
-                            <option value="Deuda">
-                    
-    
-                        </th>
-    
-                    </tr>
-    
-                    <tr>
-                        <th width="400">
-                            <input type="text" placeholder="Nombre" name="nombre">
-    
-                        </th>
-    
-                    </tr>
-    
-                    <tr>
-                        <th width="400">
-                            <input type="date" placeholder="Fecha" name="fecha">
-    
-                        </th>
-    
-                    </tr>
-    
-                    <tr>
-                        <th width="400">
-                            <input type="text" placeholder="Categoría" name="categoria">
-    
-                        </th>
-    
-                    </tr>
-    
-                    <tr>
-                        <th width="400">
-                            <input type="text" placeholder="Descripción" name="descripcion">
-    
-                        </th>
-    
-                        <th colspan="2">
-                            <button type="submit">Save</button>
-    
-                        </th>
-    
-                    </tr>
-    
-    
-    
-    
-    
-    
-                </table>
-    
+        {%  for field in form_registro %}
+                <div class="form-group">
+                    {{  field.errors }}
+                    {{  field.label_tag }} {{ field }}
+                </div>
+        {% endfor %}
+            <br>
+        <button type="submit">Guardar registro</button>
     </form>
-
 </div>
-
-<style>
-   
-    .form{
-
-    display: flex;
-    transform: scale(1.5);
-    align-items: center;
-    justify-content: center;
-    
-    
-   
-  }
- 
-
-
-</style>
-
 <br>
 <br>
+    <style>
+    label{
+        display: block;
+        color : antiquewhite;
+    }
+    </style>
 
 
 {% endblock %}

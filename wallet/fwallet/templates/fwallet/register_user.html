@@ -39,67 +39,22 @@ Registro de usuarios
         {% endif %}
         <form method="post">
             {% csrf_token %}
-            <div class="form-group">
-                <label style="color : antiquewhite;" for="nombre_usuario">Nombre</label>
-                <input type="text" class="form-control" id=nombre_usuario name="nombre" required>
-            </div>
-
-            <div class="form-group">
-                <label style="color : antiquewhite;" for="contraseña">Contraseña</label>
-                <input type="password" class="form-control" id="contraseña" name="contraseña" required>
-            </div>
-            
-            <div class="form-group">
-                <label style="color : antiquewhite;" for="mail">Mail</label>
-                <input type="email" class="form-control" id="mail" name="mail" required>
-            </div>
-
-             <div class="form-group">
-                <label style="color : antiquewhite;" for="apodo">Apodo</label>
-                <input type="text" class="form-control" id="apodo" name="apodo">
-             </div>
-
-            <div>
-                <label style="color : antiquewhite;" for="genero">Genero</label>
-                <select id="genero" class="form-control" name="genero">
-                    <option class="disabled" value="">Elige tu genero</option>
-                    <option value="m">Masculino</option>
-                    <option value="f">Femenino</option>
-                    <option value="nb">No-Binario</option>
-                    <option value="Otro">Otro</option>
-                </select>
-            </div>
+            {%  for field in form_registro_usuario %}
+                <div class="form-group">
+                    {{  field.errors }}
+                    {{  field.label_tag }} {{ field }}
+                </div>
+            {% endfor %}
             <br>
              <button type="submit">Crear usuario</button>
         </form>
 </div>
-
-<style>
-       .registro{
-
-    display: flex;
-    transform: scale(1.3);
-    align-items: center;
-    justify-content: center;  
-
-
+    <style>
+    label{
+        display: block;
+        color : antiquewhite;
     }
-
-    .title{
-
-    display: flex;
-    transform: scale(1.5);
-    align-items: center;
-    justify-content: center;
-    margin-top: -200px;
-
-
-    }
-
-
-    
-</style>
-
+    </style>
 
 <br>
 <br>

@@ -277,3 +277,19 @@ ul.errorlist{
   font-style: italic;
   color: red;
 }
+.registro{
+  display: flex;
+  transform: scale(1.2);
+  align-items: center;
+  justify-content: center;
+  padding-top: 1.5%;
+  padding-bottom: 1.5%;
+}
+
+.title{
+  display: flex;
+  transform: scale(1.5);
+  align-items: center;
+  justify-content: center;
+  margin-top: -200px;
+}
