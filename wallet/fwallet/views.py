@@ -27,13 +27,14 @@ def filtrar_por(request):
         registros = RegistroDinero.objects.filter(owner=request.user)# quering all todos with the object manager
     else:
         registros = RegistroDinero.objects.filter(owner=None)
-    input1_name = "reg"
-    input2_name = "reg2"
-    input3_name = "all_reg"
-    input4_name = "reg3"
-    input5_name = "reg4"
-    input6_name = "reg5"
-    input7_name = "reg6"
+
+    input1_name = "reg" #filtro por monto
+    input2_name = "reg2" #filtro por fecha
+    input3_name = "all_reg" #filtro por monto
+    input4_name = "reg3" #filtro por deuda
+    input5_name = "reg4"#filtro por gasto
+    input6_name = "reg5"#filtro por ingreso
+    input7_name = "reg6" #filtro por categoría
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
