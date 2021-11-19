@@ -109,7 +109,7 @@
 
 <br>
 <form action = "/busqueda_registros/" method ="POST">
-    <div style="width: 80%;background-color: greenyellow; margin: auto; text-align: center ">
+    <div class="filtro-labels">
 
 
 
@@ -147,7 +147,7 @@
     </div>
     <section>
     {% csrf_token %}
-        <div style="width: 80%;background-color: greenyellow; margin: auto; text-align: center; ">
+        <div class="filtro-form">
         <input type="submit" value= "Buscar todos" name="all_reg">
 
     &nbsp &nbsp &nbsp

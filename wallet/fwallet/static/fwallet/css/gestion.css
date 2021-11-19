@@ -131,12 +131,12 @@ p {
     float: left;
   }
   .intro .intro-text {
-    left: 600;
+    margin-left: 29%;
+    margin-right: 35%;
     width: 60%;
-    margin-top: 3rem;
     background-color: rgba(24, 64, 8);
     color: cornsilk;
-    position: absolute;
+    position: relative;
   }
   .intro .intro-text .intro-button {
     width: 100%;
@@ -155,7 +155,7 @@ p {
 .cta {
   padding-top: 5rem;
   padding-bottom: 5rem;
-  background-color: rgb(242, 245, 240);
+  background-color: rgba(242, 245, 240, 0.4);
 }
 
 .cta .cta-inner {
@@ -174,7 +174,7 @@ p {
   bottom: -0.5rem;
   left: -0.5rem;
   right: -0.5rem;
-  border: 0.25rem solid rgba(255, 255, 255, 0.85);
+  border: 0.25rem  rgba(255, 255, 255, 0.5);
 }
 
 .cta .cta-innerv {
@@ -292,4 +292,19 @@ ul.errorlist{
   align-items: center;
   justify-content: center;
   margin-top: -200px;
+}
+
+.filtro-labels{
+  width: 80%;
+  background-color: rgba(0,200,0,0.4);
+  margin: auto;
+  text-align: center;
+  color: antiquewhite;
+}
+
+.filtro-form{
+  width: 80%;
+  background-color: rgba(200,200,200,0.4);
+  margin: auto;
+  text-align: center;
 }
