@@ -284,6 +284,9 @@ ul.errorlist{
   justify-content: center;
   padding-top: 1.5%;
   padding-bottom: 1.5%;
+  margin-bottom: 3%;
+  margin-top: 1%;
+  background-color: rgba(0,0,0,0.3);
 }
 
 .title{
