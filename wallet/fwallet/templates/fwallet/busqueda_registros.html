@@ -9,6 +9,7 @@
 {% block content %}
 
 
+
 <script>
     // set the theme
     Highcharts.setOptions({
@@ -276,10 +277,38 @@
 
 
                 </div>
-
+                
                 {% endfor %}
                 <script src="https://code.highcharts.com/highcharts.src.js"></script>
                 <script>
+                    window.registros = {{ registros }};
+
+                    var ejex= [{% for registro in registros %}'{{ registro.fecha }}'{% if not forloop.last %}, {% endif %}{% endfor %}];
+                    let unique = [...new Set(ejex)];
+                    var ingresos2 = [];
+                    var deudas2 = [];
+                    var gastos2 = [];
+                    for (registro in registros) {
+                        window.alert("hola");
+                        if(registro.tipo == "Ingreso"){
+                            ingresos2.push(registro.monto);
+                            deudas2.push(0);
+                            gastos2.push(0);
+                        }
+                        else if(registro.tipo == "Deuda"){
+                            ingresos2.push(0);
+                            deudas2.push(registro.monto);
+                            gastos2.push(0);
+                        }
+                        else if(registro.tipo == "Gasto"){
+                            ingresos2.push(0);
+                            deudas2.push(0);
+                            gastos2.push(registro.monto);
+                        }
+                    } 
+                    // var ingresoss = [{% for ingreso in ingresos %}{{ ingreso.monto }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+                    // var deudass = [{% for deuda in deudas %}{{ deuda.monto }}{% if not forloop.last %}, {% endif %}{% endfor %}];
+                    // var gastoss =  [{% for gasto in gastos %}{{ gasto.monto }}{% if not forloop.last %}, {% endif %}{% endfor %}];
                     document.addEventListener('DOMContentLoaded', function () {
                         const chart = Highcharts.chart('charts', {
                             chart: {
@@ -292,9 +321,7 @@
                                 title: {
                                     text: "Fecha"
                                 },
-                                categories: [
-                                    {% for registro in registros %}'{{ registro.fecha }}'{% if not forloop.last %}, {% endif %}{% endfor %}
-                                ]
+                                categories: ejex
                             },
                             yAxis: {
                                 title: {
@@ -303,14 +330,14 @@
                             },
                             series: [{
                                 name: 'Ingreso',
-                                data: [{% for registro in registros %}{% if 1 == 1  %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
+                                data: ingresos2
                             }, {
                                 name: 'Gasto',
-                                data: [{% for registro in registros %}{% if 1 == 1   %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
+                                data: gastos2
                             },
                             {
                                 name: 'Deuda',
-                                data: [{% for registro in registros %}{% if 1 == 1   %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
+                                data: deudas2
                             }]
                         });
                     });

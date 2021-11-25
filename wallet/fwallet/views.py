@@ -41,9 +41,12 @@ def filtrar_por(request):
     query_filters = [0,0,0,0,0,0]
 
     if request.method == "GET" or request.POST.get(input3_name):
-
-
-       return render(request, pagina_resultado, {"registros":registros})
+        registros = registros.order_by('fecha')
+        ingresos = registros.filter(tipo__iexact="Ingreso")
+        gastos = registros.filter(tipo__iexact="Gasto")
+        deudas = registros.filter(tipo__iexact="Deuda")
+        
+        return render(request, pagina_resultado, context= {"registros":registros, "ingresos": ingresos, "deudas": deudas, "gastos": gastos})
 
     if request.POST.get(input1_name):
 
@@ -114,9 +117,13 @@ def filtrar_por(request):
     if query_filters[5] != 0:
         registros = registros.filter(clase__iexact=query_filters[5])
 
-    print(query_filters)
- 
-    return render(request, pagina_resultado, {"registros":registros})
+    registros = registros.order_by('fecha')
+    ingresos = registros.filter(tipo__iexact="Ingreso")
+    gastos = registros.filter(tipo__iexact="Gasto")
+    deudas = registros.filter(tipo__iexact="Deuda")
+
+    return render(request, pagina_resultado, context={'registros':registros,'ingresos':ingresos, 'gastos':gastos, 'deudas':deudas})
+
     
 
 def insertar_registros(request):
