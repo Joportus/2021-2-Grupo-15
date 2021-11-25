@@ -278,22 +278,23 @@
                 </div>
 
                 {% endfor %}
+                <script src="https://code.highcharts.com/highcharts.src.js"></script>
                 <script>
                     document.addEventListener('DOMContentLoaded', function () {
                         const chart = Highcharts.chart('charts', {
                             chart: {
-                                type: 'line'
+                                type: 'column'
                             },
                             title: {
-                                text: 'Fruit Consumption'
+                                text: 'Dinero'
                             },
                             xAxis: {
                                 title: {
                                     text: "Fecha"
                                 },
-                                //categories: [
-                                    //{% for registro in registros %}{{ registro.fecha }}{% if not forloop.last %}, {% endif %}{% endfor %}
-                                //]
+                                categories: [
+                                    {% for registro in registros %}'{{ registro.fecha }}'{% if not forloop.last %}, {% endif %}{% endfor %}
+                                ]
                             },
                             yAxis: {
                                 title: {
@@ -302,14 +303,14 @@
                             },
                             series: [{
                                 name: 'Ingreso',
-                                data: [1,2,3]//{% for registro in registros %}{% if registro.tipo == "Ingreso"%}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}
+                                data: [{% for registro in registros %}{% if 1 == 1  %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
                             }, {
                                 name: 'Gasto',
-                                data: [4,5,6]//{% for registro in registros %}{% if registro.tipo == "Gasto"%}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}
+                                data: [{% for registro in registros %}{% if 1 == 1   %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
                             },
                             {
                                 name: 'Deuda',
-                                data: [7,8,9]//{% for registro in registros %}{% if registro.tipo == "Deuda"%}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}
+                                data: [{% for registro in registros %}{% if 1 == 1   %}{{ registro.monto }}{%endif%} {% if not forloop.last %}, {% endif %}{% endfor %}]
                             }]
                         });
                     });
