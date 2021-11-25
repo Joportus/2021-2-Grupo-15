@@ -4,6 +4,7 @@ from fwallet.models import RegistroDinero, User
 from django.contrib.auth import authenticate, login, logout
 from fwallet.userForm import RegisterUser
 from fwallet.registerForm import MoneyForm
+import json
 
 
 def walletv(request):
@@ -45,8 +46,63 @@ def filtrar_por(request):
         ingresos = registros.filter(tipo__iexact="Ingreso")
         gastos = registros.filter(tipo__iexact="Gasto")
         deudas = registros.filter(tipo__iexact="Deuda")
+
+        fechas_l = list()
+        ingresos_l = list()
+        gastos_l = list()
+        deudas_l = list()
+
+
+        for registro in registros:
+            registro_dict = registro.__dict__
+            fechas_l.append(registro_dict['fecha'])
+            if registro_dict['tipo'] == "Ingreso":
+                ingresos_l.append(registro_dict['monto'])
+                gastos_l.append(0)
+                deudas_l.append(0)
+
+            elif registro_dict['tipo'] == "Gasto":
+                ingresos_l.append(0)
+                gastos_l.append(registro_dict['monto'])
+                deudas_l.append(0)
+
+            elif registro_dict['tipo'] == "Deuda":
+                ingresos_l.append(0)
+                gastos_l.append(0)
+                deudas_l.append(registro_dict['monto'])
+
+        ingresos_g = {
+        'name': 'Ingresos',
+        'data': ingresos_l,
+        'color': 'green'
+    }
+
+        gastos_g = {
+        'name': 'Gastos',
+        'data': gastos_l,
+        'color': 'red'
+    }
+        deudas_g = {
+        'name': 'Deudas',
+        'data': deudas_l,
+        'color': 'purple'
+    }
+
+        chart = {
+        'chart': {'type': 'column'},
+        'title': {'text': 'Registros de dinero por fecha'},
+        'xAxis': {'categories': fechas_l},
+        'series': [ingresos_g, gastos_g,deudas_g]
+    }
+        dump = json.dumps(chart,default=str)
+
         
-        return render(request, pagina_resultado, context= {"registros":registros, "ingresos": ingresos, "deudas": deudas, "gastos": gastos})
+
+
+        print(dump)
+
+        
+        return render(request, pagina_resultado, {"registros":registros, 'chart':dump})
 
     if request.POST.get(input1_name):
 
