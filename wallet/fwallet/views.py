@@ -69,7 +69,7 @@ def filtrar_por(request):
         tipo_ingresado = ""
         
         if request.POST.get(input6_name) == "Deudas":
-            tipo_ingresado = "deuda"
+            tipo_ingresado = "Deuda"
         query_filters[2] = tipo_ingresado
         #registros = registros.filter(tipo__iexact=tipo_ingresado)
 
@@ -80,7 +80,7 @@ def filtrar_por(request):
         tipo_ingresado = ""
         print(request.POST.get(input5_name))
         if request.POST.get(input5_name) == "Gastos":
-            tipo_ingresado = "gasto"
+            tipo_ingresado = "Gasto"
         
         query_filters[3] = tipo_ingresado
         #registros = registros.filter(tipo__iexact=tipo_ingresado)
@@ -92,7 +92,7 @@ def filtrar_por(request):
         tipo_ingresado = ""
         print(request.POST.get(input4_name))
         if request.POST.get(input4_name) == "Ingresos":
-            tipo_ingresado = "ingreso"
+            tipo_ingresado = "Ingreso"
         query_filters[4] = tipo_ingresado
         #registros = registros.filter(tipo__iexact=tipo_ingresado)
 

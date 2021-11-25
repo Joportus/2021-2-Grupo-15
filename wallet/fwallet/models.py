@@ -22,7 +22,7 @@ medium_size = 1000
 class RegistroDinero(models.Model):
     owner = models.ForeignKey(User,blank=True,null=True, on_delete=models.CASCADE)
     monto = models.IntegerField()
-    tipos_de_gasto = [('i','ingreso'), ('g','gasto'), ('d','deuda')]
+    tipos_de_gasto = [('Ingreso','Ingreso'), ('Gasto','Gasto'), ('Deuda','Deuda')]
     tipo = models.CharField(max_length=small_size, choices=tipos_de_gasto)
     nombre = models.CharField(max_length = small_size)
     fecha = models.DateField()
