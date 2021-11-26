@@ -156,22 +156,25 @@
     &nbsp &nbsp &nbsp
     <input type = "date" name="reg2">
 
-    <input  type="checkbox" value= "Ingresos" name="reg3" id="Ingresos">
+    <input type="radio" id="Ingresos" name="tipo_registro" value="Ingresos">
     <label for="Ingresos">
         <p style="color : black;" >Ingresos</p>
     </label>
-    &nbsp &nbsp &nbsp
 
-    <input type="checkbox" value= "Gastos" name="reg4" id="Gastos">
+
+            &nbsp &nbsp &nbsp
+
+    <input type="radio" value= "Gastos" name="tipo_registro" id="Gastos">
     <label for="Gastos">
         <p style="color : black;" >Gastos</p>
     </label>
 
     &nbsp &nbsp &nbsp
-    <input type="checkbox" value= "Deudas" name="reg5" id="Deudas">
+    <input type="radio" value= "Deudas" name="tipo_registro" id="Deudas">
     <label for="Deudas">
         <p style="color : black;" >Deudas</p>
     </label>
+
     &nbsp &nbsp &nbsp
 
     <input type = "text" name="reg6">
@@ -213,7 +216,7 @@
      
     }
    
-  
+   
   
   </style>
   
@@ -222,6 +225,51 @@
 {% if registros %}
 <br>
 
+<div id="FAQSidebar-buttons" onclick="showOrHide()">
+    <h2  style = "color: white; background-color: grey;display: flex;justify-content: center;" >Ver estadísticas</h2>S
+  </div>
+<div class = "graph" id="container2" >
+
+</div>
+<script src="https://code.highcharts.com/highcharts.src.js"></script>
+<script>
+  Highcharts.chart('container2',{{ chart|safe }});
+</script>
+
+<style>
+
+.graph{
+    display: flex;
+    transform: scale(0.8,1.2);
+    justify-content: center;
+    align-items: center;
+    margin-top: 40px;
+    display: none;
+ 
+}
+
+
+</style>
+
+<script>
+    var graph_div = document.getElementById('container2');
+    function showDiv() {
+        graph_div.style.display = "block";
+    }
+
+    function closeDiv() {
+        graph_div.style.display = "none";
+    }   
+
+    function showOrHide() {
+        if (graph_div.style.display === "block") {
+            closeDiv()
+        } else {
+        showDiv()
+        }
+    }
+
+</script>
 
 
 
@@ -289,28 +337,12 @@
 </div>
 {% endif %}
 
-<div id="container2"></div>
-<script src="https://code.highcharts.com/highcharts.src.js"></script>
-<script>
-  Highcharts.chart('container2', {{ chart|safe }});
-</script>
 
 
-<!--
 <br>
 <br>
-    <section>
-        <div style="background-color: mintcream; margin: auto; text-align: center;">
-
-            Categorias de registros:
-
-
-        </div>
-
-    </section>
 <br>
-<br>
--->
 {% endblock %}
+
 
 

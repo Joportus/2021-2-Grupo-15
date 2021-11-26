@@ -6,31 +6,69 @@ from fwallet.userForm import RegisterUser
 from fwallet.registerForm import MoneyForm
 import json
 
+ 
+def acumular_registros_por_fecha(ingresos,gastos,deudas,fechas):
+    fechas_unique = set()
+    for fecha in fechas:
+        fechas_unique.add(fecha)
+
+    gastos_accum = list()
+    ingresos_accum = list()
+    deudas_accum = list()
+
+    for i in range(len(fechas_unique)):
+        gastos_accum.append(0)
+        ingresos_accum.append(0)
+        deudas_accum.append(0)
+    return
+
+
 
 def organize_for_chart(registros):
     fechas_l = list()
-    ingresos_l = list()
-    gastos_l = list()
-    deudas_l = list()
-
 
     for registro in registros:
         registro_dict = registro.__dict__
         fechas_l.append(registro_dict['fecha'])
+
+    fechas_unique = list()
+
+    for fecha in fechas_l:
+        if not(fecha in fechas_unique):
+            fechas_unique.append(fecha)
+
+    ingresos_d = dict()
+    gastos_d = dict()
+    deudas_d = dict()
+
+    for fecha in fechas_unique:
+        ingresos_d[fecha] = 0
+        gastos_d[fecha] = 0
+        deudas_d[fecha] = 0
+
+
+    for registro in registros:
+        registro_dict = registro.__dict__
         if registro_dict['tipo'] == "Ingreso":
-            ingresos_l.append(registro_dict['monto'])
-            gastos_l.append(0)
-            deudas_l.append(0)
+            ingresos_d[registro_dict['fecha']] += registro_dict['monto']
 
         elif registro_dict['tipo'] == "Gasto":
-            ingresos_l.append(0)
-            gastos_l.append(registro_dict['monto'])
-            deudas_l.append(0)
+            gastos_d[registro_dict['fecha']] += registro_dict['monto']
 
         elif registro_dict['tipo'] == "Deuda":
-            ingresos_l.append(0)
-            gastos_l.append(0)
-            deudas_l.append(registro_dict['monto'])
+            deudas_d[registro_dict['fecha']] += registro_dict['monto']
+
+
+    ingresos_l = list()
+    gastos_l = list()
+    deudas_l = list()
+    
+    for fecha in fechas_unique:
+        ingresos_l.append(ingresos_d[fecha])
+        gastos_l.append(gastos_d[fecha])
+        deudas_l.append(deudas_d[fecha])
+
+
 
     ingresos_g = {
         'name': 'Ingresos',
@@ -49,10 +87,15 @@ def organize_for_chart(registros):
         'color': 'purple'
     }
 
+    Total = str(sum(ingresos_l) - sum(gastos_l))
+    Ingreso_total = str(sum(ingresos_l))
+    Gasto_total = str(sum(gastos_l))
+    Deuda_total = str(sum(deudas_l))
+
     chart = {
-        'chart': {'type': 'column'},
-        'title': {'text': 'Registros de dinero por fecha'},
-        'xAxis': {'categories': fechas_l},
+        'chart': {'type': 'spline'},
+        'title': {'text': 'Registros de dinero por fecha <br/>Total (Ingresos - Gastos) = '+Total+'<br/> Deuda acumulada = ' + Deuda_total + '<br/>Ingreso total = ' + Ingreso_total + '<br/>Gasto total = '+ Gasto_total},
+        'xAxis': {'categories': fechas_unique},
         'series': [ingresos_g, gastos_g,deudas_g]
     }
     dump = json.dumps(chart,default=str)
@@ -83,21 +126,15 @@ def filtrar_por(request):
     input1_name = "reg" #filtro por monto
     input2_name = "reg2" #filtro por fecha
     input3_name = "all_reg" #filtro por monto
-    input4_name = "reg3" #filtro por deuda
-    input5_name = "reg4"#filtro por gasto
-    input6_name = "reg5"#filtro por ingreso
-    input7_name = "reg6" #filtro por categoría
+    input4_name = "tipo_registro" #filtro por deuda
+    input5_name = "reg6"#filtro por gasto
 
     pagina_resultado = "fwallet/busqueda_registros.html"
 
-    query_filters = [0,0,0,0,0,0]
+    query_filters = [0,0,0,0]
 
     if request.method == "GET" or request.POST.get(input3_name):
         registros = registros.order_by('fecha')
-        ingresos = registros.filter(tipo__iexact="Ingreso")
-        gastos = registros.filter(tipo__iexact="Gasto")
-        deudas = registros.filter(tipo__iexact="Deuda")
-
         
         dump = organize_for_chart(registros)
 
@@ -115,51 +152,31 @@ def filtrar_por(request):
 
 
     if request.POST.get(input2_name):
-
-        fecha_ingresada = request.POST.get(input2_name)
-        query_filters[1] = fecha_ingresada
-        #registros = registros.filter(fecha__iexact=fecha_ingresada)
-
-        #return render(request, pagina_resultado, {"registros":registros, "query":fecha_ingresada})
-
-
-    if request.POST.get(input6_name):
-
-        tipo_ingresado = ""
-        
-        if request.POST.get(input6_name) == "Deudas":
-            tipo_ingresado = "Deuda"
-        query_filters[2] = tipo_ingresado
-        #registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-        #return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
-
-    if request.POST.get(input5_name):
-
-        tipo_ingresado = ""
-        print(request.POST.get(input5_name))
-        if request.POST.get(input5_name) == "Gastos":
-            tipo_ingresado = "Gasto"
-        
-        query_filters[3] = tipo_ingresado
-        #registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-        #return render(request, pagina_resultado, {"registros":registros, "query":tipo_ingresado})
-
+ 
+         fecha_ingresada = request.POST.get(input2_name)
+         query_filters[1] = fecha_ingresada
+         #registros = registros.filter(fecha__iexact=fecha_ingresada)
+ 
+         #return render(request, pagina_resultado, {"registros":registros, "query":fecha_ingresada})
+ 
     if request.POST.get(input4_name):
-
+ 
         tipo_ingresado = ""
         print(request.POST.get(input4_name))
         if request.POST.get(input4_name) == "Ingresos":
-            tipo_ingresado = "Ingreso"
-        query_filters[4] = tipo_ingresado
+            tipo_ingresado = "ingreso"
+        elif request.POST.get(input4_name) == "Gastos":
+            tipo_ingresado = "gasto"
+        elif request.POST.get(input4_name) == "Deudas":
+            tipo_ingresado = "deuda"
+        query_filters[2] = tipo_ingresado
         #registros = registros.filter(tipo__iexact=tipo_ingresado)
-
-    if request.POST.get(input7_name):
-        categoria_ingresada = request.POST.get(input7_name)
-        query_filters[5] = categoria_ingresada
-
-    #return render(request, pagina_resultado, {"registros":registros})
+ 
+    if request.POST.get(input5_name):
+        categoria_ingresada = request.POST.get(input5_name)
+        query_filters[3] = categoria_ingresada
+ 
+     #return render(request, pagina_resultado, {"registros":registros})
     if query_filters[0] != 0:
         registros = registros.filter(monto__iexact=query_filters[0])
     if query_filters[1] != 0:
@@ -167,20 +184,14 @@ def filtrar_por(request):
     if query_filters[2] != 0:
         registros = registros.filter(tipo__iexact=query_filters[2])
     if query_filters[3] != 0:
-        registros = registros.filter(tipo__iexact=query_filters[3])
-    if query_filters[4] != 0:
-        registros = registros.filter(tipo__iexact=query_filters[4])
-    if query_filters[5] != 0:
-        registros = registros.filter(clase__iexact=query_filters[5])
+        registros = registros.filter(clase__iexact=query_filters[3])
+ 
 
     registros = registros.order_by('fecha')
-    ingresos = registros.filter(tipo__iexact="Ingreso")
-    gastos = registros.filter(tipo__iexact="Gasto")
-    deudas = registros.filter(tipo__iexact="Deuda")
 
     dump = organize_for_chart(registros)
-    
-    return render(request, pagina_resultado, context={'registros':registros,'ingresos':ingresos, 'gastos':gastos, 'deudas':deudas, 'chart':dump})
+
+    return render(request, pagina_resultado, context={'registros':registros, 'chart':dump})
 
     
 
