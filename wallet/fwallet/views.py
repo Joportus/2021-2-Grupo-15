@@ -185,6 +185,11 @@ def filtrar_por(request):
         registros = registros.filter(tipo__iexact=query_filters[2])
     if query_filters[3] != 0:
         registros = registros.filter(clase__iexact=query_filters[3])
+
+    if request.POST.get("delete"):
+        id=request.POST.get("delete", 'registro.id')
+        instance = RegistroDinero.objects.get(id=id)
+        instance.delete()
  
 
     registros = registros.order_by('fecha')

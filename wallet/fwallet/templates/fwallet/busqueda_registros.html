@@ -294,37 +294,41 @@
 <br>
 
 
-    <div class="container"> 
-        <strong><div style="background-color: #1c7430" class="row">
-           <div class="col" > Monto  </div>
-           <div class="col"> Tipo </div>
-           <div class="col"> Nombre </div>
-           <div class="col"> Fecha </div>
-           <div class="col"> Categoria </div>
-           <div class="col"> Descripción </div>
-        </div></strong> 
-                
-                {% for registro in registros %}
-                <div style="background-color: #9fcdff; border-bottom:1px solid black" class = "row">
+<div class="container"> 
+    <strong><div style="background-color: #1c7430" class="row">
+       <div class="col" > Monto  </div>
+       <div class="col"> Tipo </div>
+       <div class="col"> Nombre </div>
+       <div class="col"> Fecha </div>
+       <div class="col"> Categoria </div>
+       <div class="col"> Descripción </div>
+       <div class="col">  </div>
+    </div></strong> 
+            
+            {% for registro in registros %}
+            <div style="background-color: #9fcdff; border-bottom:1px solid black" class = "row">
 
 
-                        {% if registro.tipo == "Ingreso"%}
-                            <div style = "color: green" class="col">{{registro.monto}} </div>
-                            {% elif  registro.tipo == "Gasto" %}
-                            <div style = "color: red" class="col">{{registro.monto}} </div>
-                            {% else %}
-                            <div style = "color: purple" class="col">{{registro.monto}} </div>
-                        {% endif %}
+                    {% if registro.tipo == "Ingreso"%}
+                        <div style = "color: green" class="col">{{registro.monto}} </div>
+                        {% elif  registro.tipo == "Gasto" %}
+                        <div style = "color: red" class="col">{{registro.monto}} </div>
+                        {% else %}
+                        <div style = "color: purple" class="col">{{registro.monto}} </div>
+                    {% endif %}
 
-                        <div class="col"> {{registro.tipo}} </div>
+                    <div class="col"> {{registro.tipo}} </div>
 
-                        <div class="col"> {{registro.nombre}} </div>
-                        <div class="col"> {{registro.fecha}} </div>
-                        <div class="col"> {{registro.clase}} </div>
-                        <div class="col"> {{registro.descripcion}} </div>
+                    <div class="col"> {{registro.nombre}} </div>
+                    <div class="col"> {{registro.fecha}} </div>
+                    <div class="col"> {{registro.clase}} </div>
+                    <div class="col"> {{registro.descripcion}} </div>
+                    <div class="col">
+                        <button style="color:red" type="submit" name="delete" value="{{registro.id}}">Eliminar</button>
+                    </div>
+                    
+            </div>
 
-
-                </div>
                 
                 {% endfor %}
                
