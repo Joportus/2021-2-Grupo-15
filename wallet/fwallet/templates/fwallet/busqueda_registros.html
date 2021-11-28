@@ -225,12 +225,12 @@
 {% if registros %}
 <br>
 
-<button type="button" onclick="showOrHide()" style="color: white; background-color: grey;display: flex; justify-content: center; position: relative; text-align: center; margin-left: 41%;">
+<button type="button" onclick="showOrHide()" style="color: rgb(0, 0, 0); background-color: rgb(233, 178, 178);display: flex; justify-content: center; position: relative; text-align: center; margin-left: 41%;margin-top: 15px;">
     <h2>Ver estadísticas</h2>
 </button>
 <div class = "graph" id="container2" >
 
-</div>
+</div>  
 <script src="https://code.highcharts.com/highcharts.src.js"></script>
 <script>
   Highcharts.chart('container2',{{ chart|safe }});
@@ -295,7 +295,7 @@
 
 
 <div class="container"> 
-    <strong><div style="background-color: #1c7430" class="row">
+    <strong><div style="background-color: #1c7431d2;color: seashell;font-size: larger;" class="row">
        <div class="col" > Monto  </div>
        <div class="col"> Tipo </div>
        <div class="col"> Nombre </div>
@@ -306,7 +306,7 @@
     </div></strong> 
             
             {% for registro in registros %}
-            <div style="background-color: #9fcdff; border-bottom:1px solid black" class = "row">
+            <div style="background-color: rgba(248, 229, 207, 0.753); border-bottom:1px solid black" class = "row">
 
 
                     {% if registro.tipo == "Ingreso"%}
